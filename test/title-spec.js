@@ -1,5 +1,5 @@
 const expect = require("expect");
-import { Map, List, Record } from "immutable";
+const { Map, List, Record } = require("immutable");
 const { transformTitle } = require("../title");
 
 describe("transformTitle", () => {

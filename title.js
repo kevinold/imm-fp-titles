@@ -1,6 +1,6 @@
-import Task from "data.task";
-import Maybe from "data.maybe";
-import {
+const Task = require("data.task");
+const Maybe = require("data.maybe");
+const {
   __,
   propEq,
   adjust,
@@ -21,8 +21,8 @@ import {
   where,
   whereEq,
   curry,
-} from "ramda";
-import { mapped, over, view, set, lens, iso, from } from "ramda-lens";
+} = require("ramda");
+const { mapped, over, view, set, lens, iso, from } = require("ramda-lens");
 
 const trace = curry((tag, x) => {
   console.log(tag, x);
