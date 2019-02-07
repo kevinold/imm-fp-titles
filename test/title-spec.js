@@ -24,6 +24,12 @@ describe("transformTitle", () => {
         }),
       ),
     });
-    expect(transformTitle(App).getIn("titles", 1, "guid")).toBe("UPDATED_GUID");
+    expect(
+      transformTitle("UPDATED_GUID", App).getIn(["titles", 1, "guid"]),
+    ).toBe("UPDATED_GUID");
+
+    const t = transformTitle("UPDATED_GUID");
+
+    expect(t(App).getIn(["titles", 1, "guid"])).toBe("UPDATED_GUID");
   });
 });

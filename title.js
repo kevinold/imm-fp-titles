@@ -35,22 +35,14 @@ const immLens = key => lens(x => x.get(key), (val, x) => x.set(key, val));
 
 const titles = immLens("titles");
 const uuid = immLens("uuid");
+const guid = immLens("guid");
 
-const reduceTitle = title => {
-  return title.set("guid", "UPDATED_GUID");
-};
-const transformTitle = compose(
-  set(view(titles)), // "set" back in titles list
-  adjust(reduceTitle, findIndex(compose(equals("MOCK_UUID2"), view(uuid)))), // lookup index and adjust object
-  find(compose(equals("MOCK_UUID2"), view(uuid))), // find by uuid lens
-  view(titles), // lens of titles list
+const getIndex = xs =>
+  xs.get("titles").findIndex(compose(equals("MOCK_UUID2"), view(uuid)));
+
+const transformTitle = curry((updatedGuid, xs) =>
+  set(compose(titles, immLens(getIndex(xs)), guid), updatedGuid, xs),
 );
-
-// WORKS
-//console.log(
-//  "FI: ",
-//  findIndex(propEq("uuid", "MOCK_UUID2"), App.get("titles").toJS()),
-//);
 
 module.exports = {
   transformTitle,
